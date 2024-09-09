@@ -1,9 +1,20 @@
 import streamlit as st
 import pandas as pd
 import matplotlib.pyplot as plt
+from wordcloud import WordCloud
+import os
 
 # Set up the Streamlit app
 st.title("Tourism Perception Questionnaire")
+
+# Path for the CSV file
+csv_file = "responses.csv"
+
+# Load existing responses from CSV if it exists
+if os.path.exists(csv_file):
+    df = pd.read_csv(csv_file)
+else:
+    df = pd.DataFrame(columns=["Satisfaction", "Interaction", "Benefits", "Concerns"])
 
 # Create a form for the questionnaire
 with st.form("tourism_survey"):
@@ -20,39 +31,80 @@ with st.form("tourism_survey"):
 
 # Process the form data
 if submitted:
-    # Create a DataFrame with the responses
-    data = pd.DataFrame({
+    # Create a DataFrame with the new response
+    new_data = pd.DataFrame({
         "Satisfaction": [q1],
         "Interaction": [q2],
         "Benefits": [q3],
         "Concerns": [q4]
     })
     
-    # Display the raw data
-    st.subheader("Raw Data")
-    st.write(data)
+    # Append new data to the existing DataFrame
+    df = pd.concat([df, new_data], ignore_index=True)
     
-    # Perform some simple analysis
-    st.subheader("Analysis")
+    # Save the updated DataFrame back to the CSV
+    df.to_csv(csv_file, index=False)
     
-    # Satisfaction level
-    st.write(f"Satisfaction level: {q1}/5")
+    # Display the updated data
+    st.subheader("All Responses")
+    st.write(df)
+
+# Data Analysis Section
+if not df.empty:
+    st.subheader("Data Analysis & Visualizations")
     
-    # Interaction frequency
-    st.write(f"Interaction frequency: {q2}")
-    
-    # Word clouds for benefits and concerns
-    st.write("Most common words in benefits:")
-    st.write(", ".join(w for w in q3.lower().split() if len(w) > 3))
-    
-    st.write("Most common words in concerns:")
-    st.write(", ".join(w for w in q4.lower().split() if len(w) > 3))
-    
-    # Visualization
-    st.subheader("Visualization")
+    # 1. Satisfaction Distribution - Histogram
+    st.subheader("Satisfaction Distribution")
     fig, ax = plt.subplots()
-    ax.bar(["Satisfaction"], [q1])
-    ax.set_ylim(0, 5)
-    ax.set_ylabel("Score")
-    ax.set_title("Tourism Satisfaction Score")
+    ax.hist(df['Satisfaction'], bins=5, range=(1, 5), color='skyblue', edgecolor='black')
+    ax.set_title('Distribution of Satisfaction Scores')
+    ax.set_xlabel('Satisfaction Score')
+    ax.set_ylabel('Frequency')
     st.pyplot(fig)
+    
+    # 2. Interaction Frequency - Pie Chart
+    st.subheader("Interaction Frequency Breakdown")
+    interaction_counts = df['Interaction'].value_counts()
+    fig, ax = plt.subplots()
+    ax.pie(interaction_counts, labels=interaction_counts.index, autopct='%1.1f%%', startangle=90, colors=plt.cm.Paired.colors)
+    ax.set_title('Frequency of Interaction with Tourists')
+    st.pyplot(fig)
+    
+    # 3. Word Cloud for Benefits
+    st.subheader("Word Cloud for Benefits")
+    if df['Benefits'].notnull().sum() > 0:
+        benefits_text = " ".join(df['Benefits'].dropna().tolist())
+        wordcloud = WordCloud(width=800, height=400, background_color='white').generate(benefits_text)
+        fig, ax = plt.subplots(figsize=(10, 5))
+        ax.imshow(wordcloud, interpolation='bilinear')
+        ax.axis("off")
+        st.pyplot(fig)
+    else:
+        st.write("No benefits data available for word cloud.")
+    
+    # 4. Word Cloud for Concerns
+    st.subheader("Word Cloud for Concerns")
+    if df['Concerns'].notnull().sum() > 0:
+        concerns_text = " ".join(df['Concerns'].dropna().tolist())
+        wordcloud = WordCloud(width=800, height=400, background_color='white').generate(concerns_text)
+        fig, ax = plt.subplots(figsize=(10, 5))
+        ax.imshow(wordcloud, interpolation='bilinear')
+        ax.axis("off")
+        st.pyplot(fig)
+    else:
+        st.write("No concerns data available for word cloud.")
+    
+    # 5. Correlation Between Satisfaction and Interaction - Bar Chart
+    st.subheader("Satisfaction by Interaction Frequency")
+    interaction_means = df.groupby('Interaction')['Satisfaction'].mean()
+    fig, ax = plt.subplots()
+    ax.bar(interaction_means.index, interaction_means, color='lightgreen')
+    ax.set_xlabel("Interaction Frequency")
+    ax.set_ylabel("Average Satisfaction Score")
+    ax.set_title("Average Satisfaction Score by Interaction Frequency")
+    st.pyplot(fig)
+    
+    # 6. Average Satisfaction
+    st.subheader("Satisfaction Summary")
+    avg_satisfaction = df['Satisfaction'].mean()
+    st.write(f"Average satisfaction level: {avg_satisfaction:.2f}/5")
