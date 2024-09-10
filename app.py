@@ -33,7 +33,7 @@ translations = {
         "satisfaction_by_interaction": "Satisfaction by Interaction",
         "satisfaction_summary": "Satisfaction Summary",
         "avg_satisfaction": "Average satisfaction level: {:.2f}/5",
-        "developed_with": "Developed with Streamlit",
+        "developed_with": "Developed with Streamlit for iRest",
         "daily": "Daily",
         "weekly": "Weekly",
         "monthly": "Monthly",
@@ -61,7 +61,7 @@ translations = {
         "satisfaction_by_interaction": "Satisfacción por Interacción",
         "satisfaction_summary": "Resumen de Satisfacción",
         "avg_satisfaction": "Nivel de satisfacción promedio: {:.2f}/5",
-        "developed_with": "Desarrollado con Streamlit",
+        "developed_with": "Desarrollado con Streamlit para iRest",
         "daily": "Diariamente",
         "weekly": "Semanalmente",
         "monthly": "Mensualmente",
@@ -214,4 +214,4 @@ elif page == t("nav_results"):
 
 # Add a footer
 st.sidebar.markdown("---")
-st.sidebar.info(t("developed for irest"))
+st.sidebar.info(t("developed_with"))
