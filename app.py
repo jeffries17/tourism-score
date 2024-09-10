@@ -33,7 +33,13 @@ translations = {
         "satisfaction_by_interaction": "Satisfaction by Interaction",
         "satisfaction_summary": "Satisfaction Summary",
         "avg_satisfaction": "Average satisfaction level: {:.2f}/5",
-        "developed_with": "Developed with Streamlit"
+        "developed_with": "Developed with Streamlit",
+        "daily": "Daily",
+        "weekly": "Weekly",
+        "monthly": "Monthly",
+        "rarely": "Rarely",
+        "never": "Never",
+        "frequency": "Frequency"
     },
     "es": {
         "title": "Cuestionario de Percepción del Turismo",
@@ -55,7 +61,13 @@ translations = {
         "satisfaction_by_interaction": "Satisfacción por Interacción",
         "satisfaction_summary": "Resumen de Satisfacción",
         "avg_satisfaction": "Nivel de satisfacción promedio: {:.2f}/5",
-        "developed_with": "Desarrollado con Streamlit"
+        "developed_with": "Desarrollado con Streamlit",
+        "daily": "Diariamente",
+        "weekly": "Semanalmente",
+        "monthly": "Mensualmente",
+        "rarely": "Raramente",
+        "never": "Nunca",
+        "frequency": "Frecuencia"
     }
 }
 
@@ -89,7 +101,7 @@ if page == t("nav_questionnaire"):
         
         # Sample questions
         q1 = st.slider(t("q1"), 1, 5, 3)
-        q2 = st.selectbox(t("q2"), [t("Daily"), t("Weekly"), t("Monthly"), t("Rarely"), t("Never")])
+        q2 = st.selectbox(t("q2"), [t("daily"), t("weekly"), t("monthly"), t("rarely"), t("never")])
         q3 = st.text_area(t("q3"))
         q4 = st.text_area(t("q4"))
         
@@ -150,7 +162,7 @@ elif page == t("nav_results"):
             ax.hist(df['Satisfaction'], bins=5, range=(1, 5), color='skyblue', edgecolor='black')
             ax.set_title(t("satisfaction_dist"))
             ax.set_xlabel(t("q1"))
-            ax.set_ylabel(t("Frequency"))
+            ax.set_ylabel(t("frequency"))
             st.pyplot(fig)
 
         elif analysis_options[selected_analysis] == "interaction_freq":
@@ -202,4 +214,4 @@ elif page == t("nav_results"):
 
 # Add a footer
 st.sidebar.markdown("---")
-st.sidebar.info(t("developed_with"))
+st.sidebar.info(t("developed for irest"))
