@@ -21,10 +21,10 @@ st.sidebar.title("Navigation")
 page = st.sidebar.radio("Go to", ["Questionnaire", "Results"])
 
 if page == "Questionnaire":
-    st.sidebar.title("Tourism Survey")
+    st.title("Tourism Perception Questionnaire")
     
-    # Create a form for the questionnaire in the sidebar
-    with st.sidebar.form("tourism_survey"):
+    # Create a form for the questionnaire in the main body
+    with st.form("tourism_survey"):
         st.write("Please answer the following questions about tourism in your area:")
         
         # Sample questions
@@ -53,10 +53,6 @@ if page == "Questionnaire":
         df.to_csv(csv_file, index=False)
         
         st.success("Thank you for your response!")
-
-    # Main content area
-    st.title("Tourism Perception Questionnaire")
-    st.write("Please use the sidebar to fill out the questionnaire. Once you've submitted your response, you can view the results by selecting 'Results' in the sidebar.")
 
 elif page == "Results":
     st.title("Survey Results and Analysis")
@@ -139,4 +135,4 @@ elif page == "Results":
 
 # Add a footer
 st.sidebar.markdown("---")
-st.sidebar.info("IREST!")
+st.sidebar.info("Developed for IREST")
