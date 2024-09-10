@@ -139,4 +139,4 @@ elif page == "Results":
 
 # Add a footer
 st.sidebar.markdown("---")
-st.sidebar.info("IREST")
+st.sidebar.info("IREST!")
