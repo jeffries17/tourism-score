@@ -68,6 +68,62 @@ translations = {
         "rarely": "Raramente",
         "never": "Nunca",
         "frequency": "Frecuencia"
+    },
+    "fr": {
+        "title": "Questionnaire sur la Perception du Tourisme",
+        "nav_questionnaire": "Questionnaire",
+        "nav_results": "Résultats",
+        "q1": "Dans quelle mesure êtes-vous satisfait du niveau actuel de tourisme dans votre région ?",
+        "q2": "À quelle fréquence interagissez-vous avec des touristes ?",
+        "q3": "Quels sont, selon vous, les principaux avantages du tourisme dans votre région ?",
+        "q4": "Quelles sont vos principales préoccupations concernant le tourisme dans votre région ?",
+        "submit": "Soumettre",
+        "thank_you": "Merci pour votre réponse !",
+        "no_data": "Aucune donnée disponible pour le moment. Veuillez d'abord soumettre quelques réponses.",
+        "select_analysis": "Sélectionnez l'analyse à afficher :",
+        "all_responses": "Toutes les Réponses",
+        "satisfaction_dist": "Distribution de la Satisfaction",
+        "interaction_freq": "Fréquence d'Interaction",
+        "wordcloud_benefits": "Nuage de Mots - Avantages",
+        "wordcloud_concerns": "Nuage de Mots - Préoccupations",
+        "satisfaction_by_interaction": "Satisfaction par Interaction",
+        "satisfaction_summary": "Résumé de la Satisfaction",
+        "avg_satisfaction": "Niveau de satisfaction moyen : {:.2f}/5",
+        "developed_with": "Développé avec Streamlit pour iRest",
+        "daily": "Quotidiennement",
+        "weekly": "Hebdomadairement",
+        "monthly": "Mensuellement",
+        "rarely": "Rarement",
+        "never": "Jamais",
+        "frequency": "Fréquence"
+    },
+    "de": {
+        "title": "Fragebogen zur Wahrnehmung des Tourismus",
+        "nav_questionnaire": "Fragebogen",
+        "nav_results": "Ergebnisse",
+        "q1": "Wie zufrieden sind Sie mit dem aktuellen Tourismusniveau in Ihrer Region?",
+        "q2": "Wie oft interagieren Sie mit Touristen?",
+        "q3": "Was sind Ihrer Meinung nach die Hauptvorteile des Tourismus in Ihrer Region?",
+        "q4": "Was sind Ihre Hauptbedenken bezüglich des Tourismus in Ihrer Region?",
+        "submit": "Absenden",
+        "thank_you": "Vielen Dank für Ihre Antwort!",
+        "no_data": "Noch keine Daten verfügbar. Bitte senden Sie zuerst einige Antworten.",
+        "select_analysis": "Wählen Sie die anzuzeigende Analyse:",
+        "all_responses": "Alle Antworten",
+        "satisfaction_dist": "Zufriedenheitsverteilung",
+        "interaction_freq": "Interaktionshäufigkeit",
+        "wordcloud_benefits": "Wortwolke - Vorteile",
+        "wordcloud_concerns": "Wortwolke - Bedenken",
+        "satisfaction_by_interaction": "Zufriedenheit nach Interaktion",
+        "satisfaction_summary": "Zufriedenheitszusammenfassung",
+        "avg_satisfaction": "Durchschnittliche Zufriedenheit: {:.2f}/5",
+        "developed_with": "Entwickelt mit Streamlit für iRest",
+        "daily": "Täglich",
+        "weekly": "Wöchentlich",
+        "monthly": "Monatlich",
+        "rarely": "Selten",
+        "never": "Nie",
+        "frequency": "Häufigkeit"
     }
 }
 
@@ -81,8 +137,8 @@ else:
     df = pd.DataFrame(columns=["Language", "Satisfaction", "Interaction", "Benefits", "Concerns", "Benefits_en", "Concerns_en"])
 
 # Language selector
-languages = ["en", "es"]
-selected_lang = st.sidebar.selectbox("Select Language / Seleccione Idioma", languages)
+languages = ["en", "es", "fr", "de"]
+selected_lang = st.sidebar.selectbox("Select Language / Seleccione Idioma / Sélectionnez la langue / Sprache auswählen", languages)
 
 # Translate function
 def t(key):
